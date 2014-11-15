@@ -15,21 +15,21 @@ Just run the binary, with the temperature you want as the final character.
 
 It supports Celsius:
 
-```console
+```bash
 $ ./temp-converter 67.2C
 > The converted temperature is: 152.96F or 340.35K
 ```
 
 As well as Fahrenheit:
 
-```console
+```bash
 $ ./temp-converter 99.3F
 > The converted temperature is: 37.3889C or 310.539K
 ```
 
 And also Kelvin:
 
-```console
+```bash
 $ ./temp-converter 300.1K
 > The converted temperature is: 26.95C or 80.51F
 ```
