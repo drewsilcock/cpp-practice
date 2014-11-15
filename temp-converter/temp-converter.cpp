@@ -1,22 +1,5 @@
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <stdio.h>
-#include <cstdlib>
-#include <cctype>
-
 #include "temp-converter.h"
-
 using namespace std;
-
-int valid_temp(string);
-string remove_unit(string);
-string cels_to_fahr(string);
-string fahr_to_cels(string);
-string kelvin_to_cels(string);
-string cels_to_kelvin(string);
-string kelvin_to_fahr(string);
-string fahr_to_kelvin(string);
 
 int main(int argc, char **argv)
 {
@@ -31,24 +14,25 @@ int main(int argc, char **argv)
         exit(2);
     }
 
-    string temp = argv[1];
-    string conv_temp_one;
-    string conv_temp_two;
-    char orig_unit = temp[temp.length() - 1];
+    string tempstr = argv[1];
+    Temperature conv_temp_one;
+    Temperature conv_temp_two;
 
-    if (orig_unit == 'C') {
-        conv_temp_one = cels_to_fahr(temp);
-        conv_temp_two = cels_to_kelvin(temp);
-    } else if (orig_unit == 'F') {
-        conv_temp_one = fahr_to_cels(temp);
-        conv_temp_two = fahr_to_kelvin(temp);
+    Temperature temp = Temperature(tempstr);
+
+    if (temp.unit == CELSIUS) {
+        conv_temp_one = temp.to_fahr();
+        conv_temp_two = temp.to_kelv();
+    } else if (temp.unit == FAHRENHEIT) {
+        conv_temp_one = temp.to_cels();
+        conv_temp_two = temp.to_kelv();
     } else {
-        conv_temp_one = kelvin_to_cels(temp);
-        conv_temp_two = kelvin_to_fahr(temp);
+        conv_temp_one = temp.to_cels();
+        conv_temp_two = temp.to_fahr();
     }
 
-    cout << "The converted temperature is: " << conv_temp_one
-         << " or " << conv_temp_two << endl;
+    cout << "The converted temperature is: " << conv_temp_one.to_str()
+         << " or " << conv_temp_two.to_str() << endl;
 
     return 0;
 }
@@ -79,7 +63,8 @@ int valid_temp(string tempstr)
         // Only allowed one full stop
     }
 
-    if (finalchar != 'C' and finalchar != 'F' and finalchar != 'K') {
+    if (finalchar != CELSIUS and finalchar != FAHRENHEIT
+            and finalchar != KELVIN) {
         return false;
         // Final character must be valid temp unit
     }
@@ -92,62 +77,4 @@ int valid_temp(string tempstr)
     }
 
     return true;
-}
-
-string cels_to_fahr(string tempstr)
-{
-    float temp = atof(tempstr.c_str());
-
-    float conv_temp = temp * CELS_FAHR_FACTOR + CELS_FAHR_DIFF;
-
-    ostringstream conv_tempstream;
-    conv_tempstream << conv_temp << 'F';
-    string conv_tempstr = conv_tempstream.str();
-    return conv_tempstr;
-}
-
-string fahr_to_cels(string tempstr)
-{
-    double temp = atof(tempstr.c_str());
-
-    float conv_temp = (temp - CELS_FAHR_DIFF) / CELS_FAHR_FACTOR;
-
-    ostringstream conv_tempstream;
-    conv_tempstream << conv_temp << 'C';
-    string conv_tempstr = conv_tempstream.str();
-    return conv_tempstr;
-}
-
-string kelvin_to_cels(string tempstr)
-{
-    float temp = atof(tempstr.c_str());
-
-    float conv_temp = temp + ABS_ZERO;
-
-    ostringstream conv_tempstream;
-    conv_tempstream << conv_temp << 'C';
-    string conv_tempstr = conv_tempstream.str();
-    return conv_tempstr;
-}
-
-string cels_to_kelvin(string tempstr)
-{
-    float temp = atof(tempstr.c_str());
-
-    float conv_temp = temp - ABS_ZERO;
-
-    ostringstream conv_tempstream;
-    conv_tempstream << conv_temp << 'K';
-    string conv_tempstr = conv_tempstream.str();
-    return conv_tempstr;
-}
-
-string kelvin_to_fahr(string tempstr)
-{
-    return cels_to_fahr(kelvin_to_cels(tempstr));
-}
-
-string fahr_to_kelvin(string tempstr)
-{
-    return cels_to_kelvin(fahr_to_cels(tempstr));
 }

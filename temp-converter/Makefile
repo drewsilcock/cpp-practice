@@ -3,4 +3,4 @@ EXEC=temp-converter
 CC=g++
 
 all: $(SRC)
-	$(CC) $(SRC) -o $(EXEC)
+	$(CC) $(INCLUDES) $(SRC) -o $(EXEC)
