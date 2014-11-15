@@ -1,0 +1,3 @@
+#define CELS_FAHR_FACTOR 1.8
+#define CELS_FAHR_DIFF 32
+#define ABS_ZERO -273.15
