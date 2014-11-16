@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+    echo "Please input a project name."
+    exit 1
+fi
+
+echo "Creating new project for '$1'..."
+
+mkdir "$1" && \
+    cp Makefile.skeleton "$1/Makefile" && \
+    cd "$1" && \
+    sed -i "1d;2d;s/myexecutable/$1/" Makefile && \
+    echo -e "# Ignore the executable\n$1" > .gitignore && \
+    touch "${1}.cpp" && \
+    echo "Successfully created new project."
