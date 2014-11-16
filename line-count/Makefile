@@ -1,5 +1,5 @@
-SRC=line-count.cpp
 EXEC=line-count
+SRC=$(EXEC).cpp
 CC=g++
 
 all:

@@ -1,5 +1,5 @@
-SRC=temp-converter.cpp
 EXEC=temp-converter
+SRC=$(EXEC).cpp
 CC=g++
 
 all: $(SRC)
