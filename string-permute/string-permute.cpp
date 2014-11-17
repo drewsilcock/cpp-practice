@@ -1,14 +1,14 @@
-#include <iostream>
-#include <cstdlib>
-#include <vector>
-#include <cstring>
+#include <iostream> // For `<<`
+#include <cstdlib> // For `exit`
+#include <vector> // For `vector`
+#include <cstring> // For `strcmp`
 using namespace std;
 
 int factorial(int);
 string permute(int, string);
 void swap(string&, int, int);
-void print_usage();
 void remove_duplicates(vector<string>&);
+void print_usage();
 
 int main(int argc, char **argv)
 {
