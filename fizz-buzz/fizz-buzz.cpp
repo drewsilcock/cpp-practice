@@ -4,11 +4,11 @@
 #include <vector> // For `vector`
 using namespace std;
 
-#define FIZZ 'F'
-#define BUZZ 'B'
+#define FIZZ "F"
+#define BUZZ "B"
 #define FIZZBUZZ "FB"
 
-vector<int> parse(string);
+vector<string> split(string, char);
 
 int main(int argc, char** argv)
 {
@@ -29,7 +29,13 @@ int main(int argc, char** argv)
     }
 
     vector<int> nums(3);
-    nums = parse(file_contents);
+    vector<string> num_strings;
+
+    num_strings = split(file_contents, ' ');
+
+    for (int i = 0; i < 3; i++) {
+        nums[i] = atoi(num_strings[i].c_str());
+    }
 
     int fizz_num = nums[0];
     int buzz_num = nums[1];
@@ -52,25 +58,28 @@ int main(int argc, char** argv)
     return 0;
 }
 
-vector<int> parse(string contents)
+vector<string> split(string contents, char delim)
 {
-    char delim = ' ';
-    int delim_locs[2] = {0, 0}; // Should only be 2 spaces
-    vector<int> nums(3);
-    int k = 0;
-
+    int num_delims = 0;
     for (int i = 0; i < contents.length(); i++) {
         if (contents[i] == delim) {
-            delim_locs[k] = i;
-            k++;
+            num_delims++;
         }
     }
 
-    nums[0] = stoi(contents.substr(0, delim_locs[0]));
-    nums[1] = stoi(contents.substr(delim_locs[0] + 1,
-                                   delim_locs[1] - delim_locs[0]));
-    nums[2] = stoi(contents.substr(delim_locs[1] + 1,
-                                   delim_locs[2] - delim_locs[1]));
+    vector<string> tokens(num_delims + 1);
 
-    return nums;
+    int j = 0;
+    int pos = 0;
+    for (int i = 0; i < contents.length(); i++) {
+        if (contents[i] == delim) {
+            tokens[j] = contents.substr(pos, i - pos);
+            j++;
+            pos = i + 1;
+        }
+    }
+
+    tokens[j] = contents.substr(pos, contents.length() - pos);
+
+    return tokens;
 }
