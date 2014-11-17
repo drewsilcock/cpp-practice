@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     bool no_dup_flag = false;
     if (argv[2]) {
         if (!strcmp(argv[2], "--no-duplicates") or !strcmp(argv[2], "-n")) {
-                no_dup_flag = true;
+            no_dup_flag = true;
         }
     }
 
