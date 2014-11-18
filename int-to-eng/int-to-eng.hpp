@@ -1,6 +1,6 @@
 #include <iostream> // <<
 #include <cstdlib> // exit()
-#include <stdexcept> // std::out_of_range
+#include <stdexcept> // std::out_of_range, std::invalid_argument
 using namespace std;
 
 #define THOUSAND 1000
