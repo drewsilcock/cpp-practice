@@ -1,4 +1,4 @@
-#include "temp-converter.h"
+#include "temp-converter.hpp"
 using namespace std;
 
 int main(int argc, char **argv)
