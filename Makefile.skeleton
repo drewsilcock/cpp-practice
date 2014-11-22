@@ -3,6 +3,7 @@
 EXEC=myexecutable
 SRC=$(EXEC).cpp
 CC=g++
+OPTS=
 
 all:
-	$(CC) $(SRC) -o $(EXEC)
+	$(CC) $(OPTS) $(SRC) -o $(EXEC)
