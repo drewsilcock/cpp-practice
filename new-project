@@ -13,4 +13,5 @@ mkdir "$1" && \
     sed -i "1d;2d;s/myexecutable/$1/" Makefile && \
     echo -e "# Ignore the executable\n$1" > .gitignore && \
     touch "${1}.cpp" && \
+    echo -e "${1}\n==============" > README.md && \
     echo "Successfully created new project."
